@@ -1,17 +1,41 @@
 
 import './App.css';
-import {useState} from "react"
+import {useState,useEffect} from "react"
+import axios from "axios"
 
 function App() {
   const [counter,setCounter]=useState(0)
 
   const incrementCount=()=>{
-    setCounter(counter+1)
+    axios
+   .post("http://localhost:8080/counter",
+   {value:counter+1})
+   .then((r)=>{
+    setCounter(r.data.value)
+   })
   }
 
   const decrementCount =()=>{
-    setCounter(counter-1)
+    axios
+   .post("http://localhost:8080/counter",
+   {value:counter-1})
+   .then((r)=>{
+    setCounter(r.data.value)
+   })
   }
+  const fetchData=()=>{
+    axios
+    .get("http://localhost:8080/counter")
+    .then(({data})=>{
+      setCounter(data.value)
+    })
+    .catch((e)=>{
+      console.lo0g(e)
+    })
+}
+  useEffect(() => {
+    fetchData()
+  }, [])
   return (
     <div className="App">
       <h1>Counter</h1>
