@@ -54,4 +54,6 @@ it("should intercept a GET request",()=>{
     cy.wait("@postReq")
     cy.get("h3").should("have.text", "The Current Count is 245")
 
+
+    
   })
